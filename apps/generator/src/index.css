@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-app-bg text-gray-100 min-h-screen antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+@layer components {
+  .input-field {
+    @apply w-full px-4 py-3 bg-app-secondary border border-app-border rounded-lg
+           text-gray-100 text-base transition-colors duration-200
+           placeholder:text-gray-500
+           focus:outline-none focus:border-app-primary
+           disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .btn {
+    @apply px-6 py-3 bg-app-secondary border border-app-border rounded-lg
+           text-gray-100 text-base cursor-pointer transition-all duration-200
+           hover:bg-app-border
+           disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-app-secondary;
+  }
+
+  .btn-primary {
+    @apply bg-app-primary border-app-primary
+           hover:bg-app-primary-hover hover:border-app-primary-hover;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent;
+  }
+}
