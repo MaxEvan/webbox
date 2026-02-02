@@ -1,50 +1,43 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { Form } from "./components/Form";
+import { SuccessView } from "./components/SuccessView";
+import { useGenerateApp } from "./hooks/useGenerateApp";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const {
+    isGenerating,
+    progress,
+    result,
+    generate,
+    reset,
+    openInFinder,
+    launchApp,
+  } = useGenerateApp();
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    <div className="max-w-lg mx-auto px-6 py-10">
+      {/* Header */}
+      <header className="text-center mb-10">
+        <h1 className="text-3xl font-bold mb-2">WebBox</h1>
+        <p className="text-gray-400">Turn any website into a native Mac app</p>
+      </header>
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
+      {/* Main Content */}
+      {result?.success ? (
+        <SuccessView
+          appPath={result.path!}
+          onOpenFinder={openInFinder}
+          onLaunch={launchApp}
+          onReset={reset}
         />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+      ) : (
+        <Form
+          onSubmit={generate}
+          isGenerating={isGenerating}
+          progress={progress}
+          error={result?.error || null}
+        />
+      )}
+    </div>
   );
 }
 
