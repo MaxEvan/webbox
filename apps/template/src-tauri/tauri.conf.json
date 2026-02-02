@@ -13,15 +13,7 @@
     "withGlobalTauri": true,
     "windows": [],
     "security": {
-      "csp": null,
-      "dangerousRemoteDomainIpcAccess": [
-        {
-          "domain": "*",
-          "enableTauriAPI": true,
-          "windows": ["main"],
-          "plugins": ["notification"]
-        }
-      ]
+      "csp": null
     }
   },
   "bundle": {
