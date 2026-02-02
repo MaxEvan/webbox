@@ -118,7 +118,7 @@ pub async fn generate_app(
     emit_progress("Processing icon...", 40);
 
     let icon_source = PathBuf::from(&request.icon_path);
-    let icon_dest = temp_app_path.join("Contents/Resources/AppIcon.icns");
+    let icon_dest = temp_app_path.join("Contents/Resources/icon.icns");
 
     create_icns(&icon_source, &icon_dest).map_err(|e| user_friendly_error(&e))?;
 
