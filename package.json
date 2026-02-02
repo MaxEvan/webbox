@@ -1,0 +1,10 @@
+{
+  "name": "webbox-monorepo",
+  "private": true,
+  "scripts": {
+    "dev:generator": "pnpm --filter generator dev",
+    "dev:template": "pnpm --filter template dev",
+    "build:generator": "pnpm --filter generator build",
+    "build:template": "pnpm --filter template build"
+  }
+}
