@@ -53,13 +53,39 @@ pub async fn generate_app(
 
     emit_progress("Preparing...", 10);
 
-    let resource_dir = app.path().resource_dir()
-        .map_err(|e| user_friendly_error(&format!("Failed to get resource dir: {}", e)))?;
-    let template_path = resource_dir.join("Template.app");
+    // Try to find Template.app in multiple locations:
+    // 1. Production: resource_dir/Template.app
+    // 2. Development: src-tauri/resources/Template.app
+    let template_path = {
+        let resource_dir = app.path().resource_dir()
+            .map_err(|e| user_friendly_error(&format!("Failed to get resource dir: {}", e)))?;
 
-    if !template_path.exists() {
-        return Err("Template.app not found. The application may be corrupted.".to_string());
-    }
+        // Production path (bundled app)
+        let prod_path = resource_dir.join("Template.app");
+        if prod_path.exists() {
+            prod_path
+        } else {
+            // Development path - look for resources relative to the executable
+            let dev_path = resource_dir.join("resources/Template.app");
+            if dev_path.exists() {
+                dev_path
+            } else {
+                // Try relative to CARGO_MANIFEST_DIR for dev builds
+                let manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+                    .join("resources/Template.app");
+                if manifest_path.exists() {
+                    manifest_path
+                } else {
+                    return Err(format!(
+                        "Template.app not found. Checked:\n- {}\n- {}\n- {}",
+                        prod_path.display(),
+                        dev_path.display(),
+                        manifest_path.display()
+                    ));
+                }
+            }
+        }
+    };
 
     let safe_name: String = request.name
         .chars()
