@@ -2,7 +2,7 @@ use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
 use serde::{Deserialize, Serialize};
-use tauri::Manager;
+use tauri::{Manager, Emitter};
 
 use super::icon::create_icns;
 use super::plist::update_plist;

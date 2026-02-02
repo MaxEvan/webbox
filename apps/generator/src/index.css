@@ -1,36 +1,110 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  body {
-    @apply bg-app-bg text-gray-100 min-h-screen antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
+@theme {
+  --color-app-bg: #1a1a2e;
+  --color-app-secondary: #16213e;
+  --color-app-border: #333;
+  --color-app-primary: #646cff;
+  --color-app-primary-hover: #535bf2;
+  --color-app-error: #ff6b6b;
+  --color-app-success: #51cf66;
 }
 
-@layer components {
-  .input-field {
-    @apply w-full px-4 py-3 bg-app-secondary border border-app-border rounded-lg
-           text-gray-100 text-base transition-colors duration-200
-           placeholder:text-gray-500
-           focus:outline-none focus:border-app-primary
-           disabled:opacity-60 disabled:cursor-not-allowed;
-  }
+body {
+  background-color: var(--color-app-bg);
+  color: #f3f4f6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
-  .btn {
-    @apply px-6 py-3 bg-app-secondary border border-app-border rounded-lg
-           text-gray-100 text-base cursor-pointer transition-all duration-200
-           hover:bg-app-border
-           disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-app-secondary;
-  }
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-app-secondary);
+  border: 1px solid var(--color-app-border);
+  border-radius: 0.5rem;
+  color: #f3f4f6;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
 
-  .btn-primary {
-    @apply bg-app-primary border-app-primary
-           hover:bg-app-primary-hover hover:border-app-primary-hover;
-  }
+.input-field::placeholder {
+  color: #6b7280;
+}
 
-  .btn-secondary {
-    @apply bg-transparent;
-  }
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-app-primary);
+}
+
+.input-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-app-secondary);
+  border: 1px solid var(--color-app-border);
+  border-radius: 0.5rem;
+  color: #f3f4f6;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background-color: var(--color-app-border);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background-color: var(--color-app-secondary);
+}
+
+.btn-primary {
+  background-color: var(--color-app-primary);
+  border-color: var(--color-app-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-app-primary-hover);
+  border-color: var(--color-app-primary-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+}
+
+.text-app-error {
+  color: var(--color-app-error);
+}
+
+.bg-app-error\/10 {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.border-app-error {
+  border-color: var(--color-app-error);
+}
+
+.bg-app-primary {
+  background-color: var(--color-app-primary);
+}
+
+.bg-app-secondary {
+  background-color: var(--color-app-secondary);
+}
+
+.bg-app-success {
+  background-color: var(--color-app-success);
+}
+
+.border-app-border {
+  border-color: var(--color-app-border);
 }
